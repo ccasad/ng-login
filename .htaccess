@@ -1,0 +1,17 @@
+#RewriteEngine on
+##let the php framework do its thing
+#RewriteRule ^(api/.*)$ index.php?url=$1 [QSA,L,NC]
+##let angular do its thing
+#RewriteCond %{REQUEST_FILENAME} !-f      
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteRule ^(.*) index.html [NC,L]
+
+RewriteEngine on
+
+# Don't rewrite files or directories
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Rewrite everything else to index.html to allow html5 state links
+RewriteRule ^ index.html [L]
