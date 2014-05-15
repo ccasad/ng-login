@@ -7,9 +7,12 @@
         * the memory footprint for an integer
         */
         roles :[
-            'public',
-            'user',
-            'admin'],
+            'public',     // bitmask=1
+            'user',       // bitmask=2
+            'admin',      // bitmask=4
+            'student',    // bitmask=8
+            'advisor'     // bitmask=16
+        ],
 
         /*
         Build out all the access levels you want referencing the roles listed above
@@ -22,7 +25,7 @@
         accessLevels : {
             'public' : "*",
             'anon': ['public'],
-            'user' : ['user', 'admin'],
+            'user' : ['user', 'admin', 'student', 'advisor'],
             'admin': ['admin']
         }
 

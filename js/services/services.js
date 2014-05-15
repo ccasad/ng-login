@@ -58,7 +58,6 @@ angular.module('angular-client-side-auth')
 .factory('Users', function($http) {
     return {
         getAll: function(success, error) {
-            //$http.get('/ng-login-test2/users.php').success(success).error(error);
             $http.get('/ng-login/api/users').success(success).error(error);
         }
     };
