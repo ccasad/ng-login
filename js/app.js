@@ -80,7 +80,7 @@ xpLoginApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
       abstract: true,
       template: "<ui-view/>",
       data: {
-          access: access.admin
+        access: access.admin
       }
     })
     .state('admin.admin', {
@@ -139,20 +139,19 @@ xpLoginApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
 
 xpLoginApp.run(['$rootScope', '$state', 'xpAuth', function ($rootScope, $state, xpAuth) {
 
-    $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
-        if (!xpAuth.authorize(toState.data.access)) {
-            $rootScope.error = "Seems like you tried accessing a route you don't have access to...";
-            event.preventDefault();
-            
-            if(fromState.url === '^') {
-                if(xpAuth.isLoggedIn()) {
-                    $state.go('user.home');
-                } else {
-                    $rootScope.error = null;
-                    $state.go('anon.login');
-                }
-            }
+  $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
+    if (!xpAuth.authorize(toState.data.access)) {
+      $rootScope.error = "Seems like you tried accessing a route you don't have access to...";
+      event.preventDefault();
+      
+      if (fromState.url === '^') {
+        if (xpAuth.isLoggedIn()) {
+          $state.go('user.home');
+        } else {
+          $rootScope.error = null;
+          $state.go('anon.login');
         }
-    });
-
+      }
+    }
+  });
 }]);
