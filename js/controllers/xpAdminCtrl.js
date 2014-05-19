@@ -4,6 +4,8 @@ xpLoginApp.controller('XpAdminCtrl', ['$rootScope', '$scope', 'xpUsers', 'xpAuth
   $scope.loading = true;
   $scope.userRoles = xpAuth.userRoles;
 
+  $scope.users = [];
+
   xpUsers.getAll(function(res) {
       $scope.users = res;
       $scope.loading = false;

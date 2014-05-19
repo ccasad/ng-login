@@ -1,3 +1,10 @@
+<?php
+// Create token and set session
+session_start();
+$token = hash('sha256', uniqid(mt_rand(), true));
+$_SESSION['XSRF'] = $token;
+?>
+
 <!DOCTYPE html>
 <html lang="en" data-ng-app="xpLoginApp">
   <head>
@@ -80,5 +87,10 @@
     <script src="js/directives/xpAccessLevel.js"></script>
     <script src="js/directives/xpActiveNav.js"></script>
     
+    <script>
+      /* Give token to Angular client */
+      xpLoginApp.constant("CSRF_TOKEN", '<?=$_SESSION['XSRF'];?>'); 
+    </script>
+
   </body>
 </html>

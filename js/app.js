@@ -137,11 +137,17 @@ xpLoginApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
 
 }])
 
-xpLoginApp.run(['$rootScope', '$state', 'xpAuth', function ($rootScope, $state, xpAuth) {
+xpLoginApp.run(['CSRF_TOKEN', '$http', '$rootScope', '$state', 'xpAuth', function (CSRF_TOKEN, $http, $rootScope, $state, xpAuth) {
 
+  $http.defaults.headers.common['CSRF_TOKEN'] = CSRF_TOKEN;
+  
   $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
+
+    $http.defaults.headers.common['USER_TOKEN'] = xpAuth.user.token;
+
     if (!xpAuth.authorize(toState.data.access)) {
-      $rootScope.error = "Seems like you tried accessing a route you don't have access to...";
+
+      $rootScope.error = "Access Denied";
       event.preventDefault();
       
       if (fromState.url === '^') {

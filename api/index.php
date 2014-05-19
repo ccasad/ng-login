@@ -1,15 +1,66 @@
 <?php
+session_start();
+
 require 'vendor/slim/slim/Slim/Slim.php';
 \Slim\Slim::registerAutoloader();
 
 $app = new \Slim\Slim();
 
+/*
+$headerToken = $_SERVER['HTTP_CSRF_TOKEN'];
+$sessionToken = $_SESSION['XSRF'];
+
+if ($headerToken != $sessionToken) {
+  appFailure("Token is not authenticated.", 400);
+}
+*/
+
 $app->post('/login', 'login');
 $app->post('/logout', 'logout');
-$app->post('/register', 'register');
-$app->get('/users', 'getUsers');
+$app->post('/register', 'AuthenticateUserToken', 'register');
+$app->get('/users', 'AuthenticateUserToken', 'getUsers');
 
 $app->run();
+
+function AuthenticateUserToken(\Slim\Route $route) {
+  if (!isset($_SERVER['HTTP_USER_TOKEN']) || !verifyUserToken()) {
+    appFailure("You need a valid API key.", 400);
+  }
+}
+
+function verifyUserToken() {
+
+  $isKeyValid = false;
+
+  /*
+  try { 
+    $sql = "select * from apiKeys where apiKey = :apiKey";
+    $s = $this->dbh->prepare($sql);
+    $s->bindParam("apiKey", $key);
+    $s->execute();
+    $keyVerification = $s->fetch(\PDO::FETCH_OBJ);
+  } catch(\PDOException $e) {
+    $app->status(500);
+    $result = array("status" => "error", "message" => 'No likey');
+    echo json_encode($result);
+    $app->stop();
+  }
+  */
+
+  $isKeyValid = ($_SERVER['HTTP_USER_TOKEN'] == '1234') ? true : false;
+
+  return $isKeyValid;
+}
+
+function appFailure($message, $code) {
+
+  $app = \Slim\Slim::getInstance();
+
+  $app->status($code);
+  $result = array("status" => "error", "message" => $message);
+  echo json_encode($result);
+  $app->stop();
+}
 
 function login() {
 
@@ -17,24 +68,29 @@ function login() {
 
   $request = $app->request();
   $data = json_decode($request->getBody());
-  $user = '';
+  $response = '';
 
   if ($data) {
     $username = mysql_real_escape_string($data->username);
     $password = mysql_real_escape_string($data->password);
 
+    $user = '';
     if ($username == 'admin' && $password == '123') {
-      $user = '{"role": {"bitMask": 4, "title": "admin"}, "username": "administrator"}';
+      $user = '{"role": {"bitMask": 4, "title": "admin"}, "username": "administrator", "token": "1234"}';
     } else if ($username == 'user' && $password == '123') {
-      $user = '{"role": {"bitMask": 2, "title": "user"}, "username": "jimmyjo"}';
+      $user = '{"role": {"bitMask": 2, "title": "user"}, "username": "jimmyjo", "token": "5678"}';
     }
+
+    $response = '{"status": "success", "data": ' . $user . '}';
+  } else {
+    $response = '{"status": "error", "message": "Login unsuccessful"}';
   }
 
-  echo $user;
+  echo $response;
 }
 
 function logout() {
-  echo '';
+  echo '{"status": "success", "data": ""}';
 }
 
 function register() {
