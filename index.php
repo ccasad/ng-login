@@ -1,8 +1,11 @@
 <?php
 // Create token and set session
 session_start();
-$token = hash('sha256', uniqid(mt_rand(), true));
-$_SESSION['XSRF'] = $token;
+
+if (!isset($_SESSION['XSRF']) || !strlen($_SESSION['XSRF'])) {
+  $token = hash('sha256', uniqid(mt_rand(), true));
+  $_SESSION['XSRF'] = $token;
+}
 ?>
 
 <!DOCTYPE html>
@@ -55,7 +58,7 @@ $_SESSION['XSRF'] = $token;
             </li>
 
             <div id="userInfo" data-xp-access-level="accessLevels.user" class="pull-right">
-            Welcome&nbsp;<strong>{{ user.username }}&nbsp;</strong>
+            Welcome&nbsp;<strong>{{ user.firstName }}&nbsp;</strong>
             <span data-ng-class="{'label-info': user.role.title == userRoles.user.title, 'label-success': user.role.title == userRoles.admin.title}" class="label">{{ user.role.title }}</span>
             </div>
           </ul>

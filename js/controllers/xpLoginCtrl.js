@@ -5,7 +5,7 @@ xpLoginApp.controller('XpLoginCtrl', ['$rootScope', '$scope', '$location', '$win
   $scope.rememberme = true;
   $scope.login = function() {
     xpAuth.login({
-        username: $scope.username,
+        email: $scope.email,
         password: $scope.password,
         rememberme: $scope.rememberme
       },

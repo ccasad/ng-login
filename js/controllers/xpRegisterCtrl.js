@@ -5,10 +5,13 @@ xpLoginApp.controller('XpRegisterCtrl', ['$rootScope', '$scope', '$location', 'x
   $scope.userRoles = xpAuth.userRoles;
 
   $scope.register = function() {
+    console.log($scope.role.bitMask);
     xpAuth.register({
-        username: $scope.username,
+        firstName: $scope.firstName,
+        lastName: $scope.lastName,
+        email: $scope.email,
         password: $scope.password,
-        role: $scope.role
+        bitMask: $scope.role.bitMask
       },
       function() {
         $location.path('/');

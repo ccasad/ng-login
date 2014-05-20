@@ -8,7 +8,6 @@ If the values equate then the request can continue to the API else a response of
 "Unauthoized" will be returned. 
 */
 
-
 session_start();
 
 $headerToken = $_SERVER['HTTP_CSRF_TOKEN'];
@@ -19,8 +18,7 @@ if ($headerToken != $sessionToken) {
   exit;
 }
 
-
-/* CALL THE API */
+/* CSRF TOKEN IS LEGIT SO CALL THE API */
 
 $protocol = 'http://';
 $ip = '192.168.56.101';

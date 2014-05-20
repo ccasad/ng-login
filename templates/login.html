@@ -1,47 +1,32 @@
 <h1>Log in</h1>
 
-<form class="form-horizontal" data-ng-submit="login()" name="loginForm" role="form">
-  <div class="form-group">
-    <label class="control-label col-sm-2" for="username">Username</label>
-    <div class="col-sm-10">
-      <input class="form-control" type="text" data-ng-model="username" placeholder="Username" name="username" required="required" autofocus="autofocus">
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="control-label col-sm-2" for="password">Password</label>
-    <div class="col-sm-10">
-      <input class="form-control" type="password" data-ng-model="password" placeholder="Password" name="password" required="required">
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <div class="checkbox">
-        <label for="rememberme" class="checkbox">
-          <input type="checkbox" data-ng-model="rememberme" name="rememberme"> Remember me
-        </label>
+<div class="col-sm-7">
+  <form class="form-horizontal" data-ng-submit="login()" name="loginForm" role="form">
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="username">Email</label>
+      <div class="col-sm-10">
+        <input class="form-control" type="text" data-ng-model="email" placeholder="Email" name="email" required="required" autofocus="autofocus">
       </div>
     </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <button class="btn btn-default" type="submit" data-ng-disabled="loginForm.$invalid">Log in</button>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="password">Password</label>
+      <div class="col-sm-10">
+        <input class="form-control" type="password" data-ng-model="password" placeholder="Password" name="password" required="required">
+      </div>
     </div>
-  </div>
-</form>
-<hr/>
-<!--
-p ... or use one of them fancy social logins:
-.btn-group
-    a.btn.btn-default(href="", data-ng-click="loginOauth('facebook')")
-        i.fa.fa-facebook-square
-        |  Facebook
-    a.btn.btn-default(href="", data-ng-click="loginOauth('twitter')")
-        i.fa.fa-twitter
-        |  Twitter
-    a.btn.btn-default(href="", data-ng-click="loginOauth('google')")
-        i.fa.fa-google-plus-square
-        |  Google
-    a.btn.btn-default(href="", data-ng-click="loginOauth('linkedin')")
-        i.fa.fa-linkedin
-        |  LinkedIn
--->
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <div class="checkbox">
+          <label for="rememberme" class="checkbox">
+            <input type="checkbox" data-ng-model="rememberme" name="rememberme"> Remember me
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button class="btn btn-primary" type="submit" data-ng-disabled="loginForm.$invalid">Log in</button>
+      </div>
+    </div>
+  </form>
+</div>

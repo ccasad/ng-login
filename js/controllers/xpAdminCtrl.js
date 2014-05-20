@@ -7,7 +7,7 @@ xpLoginApp.controller('XpAdminCtrl', ['$rootScope', '$scope', 'xpUsers', 'xpAuth
   $scope.users = [];
 
   xpUsers.getAll(function(res) {
-      $scope.users = res;
+      $scope.users = res.data;
       $scope.loading = false;
     }, function(err) {
       $rootScope.error = "Failed to fetch users.";

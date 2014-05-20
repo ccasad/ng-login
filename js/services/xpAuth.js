@@ -4,7 +4,7 @@ xpLoginApp.factory('xpAuth', function($http, $cookieStore){
 
   var accessLevels = routingConfig.accessLevels;
   var userRoles = routingConfig.userRoles;
-  var currentUser = $cookieStore.get('user') || { username: '', role: userRoles.public, token: '' };
+  var currentUser = $cookieStore.get('user') || { id: '', firstName: '', lastName: '', email: '', token: '', role: userRoles.public };
 
   $cookieStore.remove('user');
 
@@ -26,8 +26,9 @@ xpLoginApp.factory('xpAuth', function($http, $cookieStore){
       return user.role.title === userRoles.user.title || user.role.title === userRoles.admin.title;
     },
     register: function(res, success, error) {
-      $http.post('/ng-login/api/register', res).success(function(res) {
-        changeUser(res);
+      $http.post('/ng-login/apirouter.php?route=register', res).success(function(res) {
+        var user = res.data;
+        changeUser(user);
         success();
       }).error(error);
     },
@@ -41,7 +42,9 @@ xpLoginApp.factory('xpAuth', function($http, $cookieStore){
     logout: function(success, error) {
       $http.post('/ng-login/apirouter.php?route=logout').success(function(){
         changeUser({
-          username: '',
+          firstName: '',
+          lastName: '',
+          email: '',
           role: userRoles.public,
           token: ''
         });

@@ -5,19 +5,17 @@
   <thead>
     <tr>
       <th>#</th>
-      <th>Username</th>
+      <th>Name</th>
+      <th>Email</th>
       <th>Role</th>
     </tr>
   </thead>
   <tbody>
     <tr data-ng-repeat="user in users">
       <td>{{ user.id }}</td>
+      <td>{{ user.firstName }} {{ user.lastName }}</td>
       <td>
-        <i class="fa fa-twitter" data-ng-show="user.provider == 'twitter'"></i>
-        <i class="fa fa-facebook-square" data-ng-show="user.provider == 'facebook'"></i>
-        <i class="fa fa-google-plus-square" data-ng-show="user.provider == 'google'"></i>
-        <i class="fa fa-linkedin" data-ng-show="user.provider == 'linkedin'"></i>
-        {{ user.username }}
+        {{ user.email }}
       </td>
       <td>
         <span class="label" data-ng-class='{"label-info": user.role.title == userRoles.user.title, "label-success": user.role.title == userRoles.admin.title}'>{{ user.role.title }}</span>
