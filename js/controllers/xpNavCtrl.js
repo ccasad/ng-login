@@ -1,5 +1,7 @@
 'use strict';
 
+var xpLoginApp = angular.module('xpLoginApp');
+
 xpLoginApp.controller('XpNavCtrl', ['$rootScope', '$scope', '$location', 'xpAuth', function($rootScope, $scope, $location, xpAuth) {
   $scope.user = xpAuth.user;
   $scope.userRoles = xpAuth.userRoles;

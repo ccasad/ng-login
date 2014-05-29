@@ -10,15 +10,28 @@ If the values equate then the request can continue to the API else a response of
 
 session_start();
 
-$headerToken = $_SERVER['HTTP_CSRF_TOKEN'];
-$sessionToken = $_SESSION['XSRF'];
+if (!isset($_SESSION['XSRF']) || !strlen($_SESSION['XSRF']) || !isset($_SESSION['HTTP_CSRF_TOKEN']) || !strlen($_SESSION['HTTP_CSRF_TOKEN'])) {
+  $token = hash('sha256', uniqid(mt_rand(), true));
+  $_SESSION['XSRF'] = $token;
 
-if ($headerToken != $sessionToken) {
-  header('HTTP/1.0 401 Unauthorized');
-  exit;
+  // if only the csrf is requested then just send that back only
+	if (isset($_GET['route']) && $_GET['route'] == 'csrf') {
+		echo $_SESSION['XSRF'];
+		exit;
+	}
+} else {
+	$headerToken = $_SERVER['HTTP_CSRF_TOKEN'];
+	$sessionToken = $_SESSION['XSRF'];
+
+	if ($headerToken != $sessionToken) {
+	  header('HTTP/1.0 401 Unauthorized');
+	  exit;
+	}	
 }
 
 /* CSRF TOKEN IS LEGIT SO CALL THE API */
+
+
 
 $protocol = 'http://';
 $ip = '192.168.56.101';

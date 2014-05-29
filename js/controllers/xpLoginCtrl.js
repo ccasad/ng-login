@@ -1,23 +1,25 @@
 'use strict';
 
-xpLoginApp.controller('XpLoginCtrl', ['$rootScope', '$scope', '$location', '$window', 'xpAuth', function($rootScope, $scope, $location, $window, xpAuth) {
+var xpLoginApp = angular.module('xpLoginApp');
 
-  $scope.rememberme = true;
-  $scope.login = function() {
-    xpAuth.login({
-        email: $scope.email,
-        password: $scope.password,
-        rememberme: $scope.rememberme
-      },
-      function(res) {
-        $location.path('/');
-      },
-      function(err) {
-        $rootScope.error = "Failed to login";
-      });
-  };
+xpLoginApp.controller('XpLoginCtrl', ['$rootScope', '$scope', '$location', '$window', 'xpAuth', 'xpApiRouterFactory', 
+  function($rootScope, $scope, $location, $window, xpAuth, xpApiRouterFactory) {
 
-  $scope.loginOauth = function(provider) {
-    $window.location.href = '/auth/' + provider;
-  };
-}]);
+    xpApiRouterFactory.setCsrfToken();
+
+    $scope.rememberme = true;
+    $scope.login = function() {
+      xpAuth.login({
+          email: $scope.email,
+          password: $scope.password,
+          rememberme: $scope.rememberme
+        },
+        function(res) {
+          $location.path('/');
+        },
+        function(err) {
+          $rootScope.error = "Failed to login";
+        });
+    };
+  }
+]);

@@ -1,5 +1,7 @@
 'use strict';
 
+var xpLoginApp = angular.module('xpLoginApp');
+
 xpLoginApp.controller('XpAdminCtrl', ['$rootScope', '$scope', 'xpUsers', 'xpAuth', function($rootScope, $scope, xpUsers, xpAuth) {
   $scope.loading = true;
   $scope.userRoles = xpAuth.userRoles;

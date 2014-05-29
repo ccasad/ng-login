@@ -1,13 +1,3 @@
-<?php
-// Create token and set session
-session_start();
-
-if (!isset($_SESSION['XSRF']) || !strlen($_SESSION['XSRF'])) {
-  $token = hash('sha256', uniqid(mt_rand(), true));
-  $_SESSION['XSRF'] = $token;
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en" data-ng-app="xpLoginApp">
   <head>
@@ -47,9 +37,6 @@ if (!isset($_SESSION['XSRF']) || !strlen($_SESSION['XSRF'])) {
             <li data-xp-access-level="accessLevels.user" data-xp-active-nav="">
               <a href="/ng-login/">Home</a>
             </li>
-            <li data-xp-access-level="accessLevels.user" data-xp-active-nav="nestedTop">
-              <a href="private">Private</a>
-            </li>
             <li data-xp-access-level="accessLevels.admin" data-xp-active-nav="">
               <a href="admin">Admin</a>
             </li>
@@ -74,26 +61,30 @@ if (!isset($_SESSION['XSRF']) || !strlen($_SESSION['XSRF'])) {
       <span data-ng-bind="error"></span>
     </div>
 
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular-cookies.min.js"></script>
-    <script src="js/libs/angular-ui-router.js"></script>
+    <script src="../mcg2/app/bower_components/jquery/dist/jquery.js"></script>
+    <script src="../mcg2/app/bower_components/angular/angular.js"></script>
+    <script src="../mcg2/app/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="../mcg2/app/bower_components/angular-resource/angular-resource.js"></script>
+    <script src="../mcg2/app/bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="../mcg2/app/bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="../mcg2/app/bower_components/angular-route/angular-route.js"></script>
+    <script src="../mcg2/app/bower_components/underscore/underscore.js"></script>
+    <script src="../mcg2/app/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="../mcg2/app/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="../mcg2/app/bower_components/angular-ui-utils/ui-utils.js"></script>
 
-    <script src="js/routingConfig.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/services/xpAuthPermissions.js"></script>
+    <script src="js/config.js"></script>
     <script src="js/services/xpAuth.js"></script>
     <script src="js/services/xpUsers.js"></script>
+    <script src="js/services/xpApiRouterFactory.js"></script>
     <script src="js/controllers/xpAdminCtrl.js"></script>
     <script src="js/controllers/xpLoginCtrl.js"></script>
     <script src="js/controllers/xpNavCtrl.js"></script>
     <script src="js/controllers/xpRegisterCtrl.js"></script>
     <script src="js/directives/xpAccessLevel.js"></script>
     <script src="js/directives/xpActiveNav.js"></script>
-    
-    <script>
-      /* Give token to Angular client */
-      xpLoginApp.constant("CSRF_TOKEN", '<?=$_SESSION['XSRF'];?>'); 
-    </script>
 
   </body>
 </html>

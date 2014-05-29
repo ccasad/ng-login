@@ -1,5 +1,7 @@
 'use strict';
 
+var xpLoginApp = angular.module('xpLoginApp');
+
 xpLoginApp.factory('xpUsers', ['$http', function($http) {
 
   return {
@@ -8,3 +10,4 @@ xpLoginApp.factory('xpUsers', ['$http', function($http) {
     }
   };
 }]);
+
