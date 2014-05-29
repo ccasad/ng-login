@@ -2,14 +2,14 @@
 
 var xpLoginApp = angular.module('xpLoginApp');
 
-xpLoginApp.controller('XpLoginCtrl', ['$rootScope', '$scope', '$location', '$window', 'xpAuth', 'xpApiRouterFactory', 
-  function($rootScope, $scope, $location, $window, xpAuth, xpApiRouterFactory) {
+xpLoginApp.controller('XpLoginCtrl', ['$rootScope', '$scope', '$location', '$window', 'xpAuthFactory', 'xpApiRouterFactory', 
+  function($rootScope, $scope, $location, $window, xpAuthFactory, xpApiRouterFactory) {
 
     xpApiRouterFactory.setCsrfToken();
 
     $scope.rememberme = true;
     $scope.login = function() {
-      xpAuth.login({
+      xpAuthFactory.login({
           email: $scope.email,
           password: $scope.password,
           rememberme: $scope.rememberme

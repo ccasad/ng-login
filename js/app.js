@@ -19,21 +19,21 @@ xpLoginApp.constant('APP_GLOBALS',{
   }
 });
 
-xpLoginApp.run(['$http', '$rootScope', '$state', 'xpAuth', 
-  function ($http, $rootScope, $state, xpAuth) {
+xpLoginApp.run(['$http', '$rootScope', '$state', 'xpAuthFactory', 
+  function ($http, $rootScope, $state, xpAuthFactory) {
 
     $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
 
-      var user = xpAuth.user;
+      var user = xpAuthFactory.user;
       $http.defaults.headers.common['USER_TOKEN'] = user.token;
 
-      if (!xpAuth.authorize(toState.data.access)) {
+      if (!xpAuthFactory.authorize(toState.data.access)) {
 
         $rootScope.error = "Access Denied";
         event.preventDefault();
         
         if (fromState.url === '^') {
-          if (xpAuth.isLoggedIn()) {
+          if (xpAuthFactory.isLoggedIn()) {
             $state.go('user.home');
           } else {
             $rootScope.error = null;

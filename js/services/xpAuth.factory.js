@@ -2,11 +2,9 @@
 
 var xpLoginApp = angular.module('xpLoginApp');
 
-xpLoginApp.factory('xpAuth', ['$http', '$cookieStore', 'xpAuthPermissions',
+xpLoginApp.factory('xpAuthFactory', ['$http', '$cookieStore', 'xpAuthPermissions',
   function($http, $cookieStore, xpAuthPermissions){
 
-    //var accessLevels = routingConfig.accessLevels;
-    //var userRoles = routingConfig.userRoles;
     var userRoles = xpAuthPermissions.userRoles;
     var accessLevels = xpAuthPermissions.accessLevels;
 
